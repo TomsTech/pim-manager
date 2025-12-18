@@ -16,12 +16,18 @@ import { usePimData } from "@/providers/PimDataProvider";
 
 interface HeaderProps {
   onMenuClick?: () => void;
+  demoMode?: boolean;
 }
 
-export function Header({ onMenuClick }: HeaderProps) {
+export function Header({ onMenuClick, demoMode }: HeaderProps) {
   const { theme, setTheme } = useTheme();
   const { user, logout } = useAuth();
   const { refreshRoles, isLoading } = usePimData();
+
+  // Demo user info
+  const displayUser = demoMode
+    ? { name: "Demo User", username: "demo@contoso.com" }
+    : user;
   const [mounted, setMounted] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
@@ -96,7 +102,7 @@ export function Header({ onMenuClick }: HeaderProps) {
               </div>
               <span className="hidden lg:flex lg:items-center">
                 <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                  {user?.name || user?.username || "User"}
+                  {displayUser?.name || displayUser?.username || "User"}
                 </span>
               </span>
             </button>
@@ -110,7 +116,12 @@ export function Header({ onMenuClick }: HeaderProps) {
                 />
                 <div className="absolute right-0 z-20 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-gray-800">
                   <div className="px-4 py-2 text-xs text-gray-500 dark:text-gray-400">
-                    {user?.username}
+                    {displayUser?.username}
+                    {demoMode && (
+                      <span className="ml-2 inline-flex items-center rounded-full bg-purple-100 dark:bg-purple-900 px-2 py-0.5 text-xs font-medium text-purple-800 dark:text-purple-200">
+                        Demo
+                      </span>
+                    )}
                   </div>
                   <hr className="border-gray-200 dark:border-gray-700" />
                   <button
