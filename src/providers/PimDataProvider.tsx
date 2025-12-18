@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useMsal } from "@azure/msal-react";
 import {
   createGraphClient,
@@ -9,42 +9,10 @@ import {
   RoleAssignmentSchedule,
   RoleActivationRequest,
 } from "@/lib/graph-client";
+import { UnifiedPimContext, useUnifiedPimData } from "./UnifiedPimContext";
 
-interface PimDataContextType {
-  eligibleRoles: RoleEligibilitySchedule[];
-  activeRoles: RoleAssignmentSchedule[];
-  isLoading: boolean;
-  error: string | null;
-  refreshRoles: () => Promise<void>;
-  activateRole: (
-    roleDefinitionId: string,
-    directoryScopeId: string,
-    justification: string,
-    duration: string,
-    ticketNumber?: string,
-    ticketSystem?: string
-  ) => Promise<void>;
-  deactivateRole: (
-    roleDefinitionId: string,
-    directoryScopeId: string
-  ) => Promise<void>;
-  isActivating: boolean;
-  activationError: string | null;
-}
-
-const PimDataContext = createContext<PimDataContextType>({
-  eligibleRoles: [],
-  activeRoles: [],
-  isLoading: true,
-  error: null,
-  refreshRoles: async () => {},
-  activateRole: async () => {},
-  deactivateRole: async () => {},
-  isActivating: false,
-  activationError: null,
-});
-
-export const usePimData = () => useContext(PimDataContext);
+// Re-export the unified hook as usePimData for backwards compatibility
+export const usePimData = useUnifiedPimData;
 
 export function PimDataProvider({ children }: { children: React.ReactNode }) {
   const { instance, accounts } = useMsal();
@@ -169,7 +137,7 @@ export function PimDataProvider({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <PimDataContext.Provider
+    <UnifiedPimContext.Provider
       value={{
         eligibleRoles,
         activeRoles,
@@ -183,6 +151,6 @@ export function PimDataProvider({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
-    </PimDataContext.Provider>
+    </UnifiedPimContext.Provider>
   );
 }
