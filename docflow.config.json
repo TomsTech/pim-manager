@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "DocFlow configuration for pim-manager",
+  "project": {
+    "name": "pim-manager",
+    "owner": "TomsTech",
+    "techStack": "python"
+  },
+  "generate": {
+    "statistics": true,
+    "folderStructure": true,
+    "index": true,
+    "dataDict": false,
+    "pdfExport": false
+  },
+  "paths": {
+    "src": "src/",
+    "docs": "docs/",
+    "generated": "docs/generated/"
+  },
+  "exclude": [
+    "node_modules",
+    "vendor",
+    "__pycache__",
+    ".git",
+    "dist",
+    "build",
+    "coverage"
+  ]
+}
+

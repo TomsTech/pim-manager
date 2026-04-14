@@ -5,8 +5,7 @@ import { useAuth } from "@/providers/AuthProvider";
 import { PimDataProvider } from "@/providers/PimDataProvider";
 import { DemoDataProvider } from "@/providers/DemoDataProvider";
 import { Sidebar } from "@/components/layout/Sidebar";
-import { Header } from "@/components/layout/Header";
-import { Shield, Loader2, AlertTriangle, Play } from "lucide-react";
+import { Shield, Loader2, AlertTriangle, Play, Menu } from "lucide-react";
 
 // Microsoft logo SVG component
 const MicrosoftLogo = () => (
@@ -33,10 +32,10 @@ export default function DashboardLayout({
   // Loading state
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
+      <div className="flex min-h-screen items-center justify-center bg-[#0d1117]">
         <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+          <p className="text-sm text-gray-400">
             Checking authentication...
           </p>
         </div>
@@ -47,31 +46,31 @@ export default function DashboardLayout({
   // Not authenticated - show login
   if (!isAuthenticated && !demoMode) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-950 dark:to-slate-900">
+      <div className="flex min-h-screen items-center justify-center bg-[#0d1117]">
         <div className="w-full max-w-md px-4">
-          <div className="rounded-2xl bg-white p-8 shadow-2xl dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div className="rounded-xl bg-[#161b22] p-8 border border-gray-800">
             {/* Logo and Title */}
             <div className="mb-8 flex flex-col items-center">
-              <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg">
-                <Shield className="h-10 w-10 text-white" />
+              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-blue-600">
+                <Shield className="h-8 w-8 text-white" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                PIM Manager
+              <h1 className="text-2xl font-bold text-white">
+                Entra ID PIM Manager
               </h1>
-              <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-                Streamline your Microsoft Entra ID privileged role management
+              <p className="mt-2 text-center text-sm text-gray-400">
+                Streamline your privileged role management
               </p>
             </div>
 
             {/* Configuration Warning */}
             {!isConfigured && (
-              <div className="mb-6 rounded-lg bg-amber-50 dark:bg-amber-900/30 p-4 border border-amber-200 dark:border-amber-800">
+              <div className="mb-6 rounded-lg bg-amber-900/30 p-4 border border-amber-800">
                 <div className="flex gap-3">
-                  <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                  <AlertTriangle className="h-5 w-5 text-amber-400 flex-shrink-0 mt-0.5" />
                   <div className="text-sm">
-                    <p className="font-medium text-amber-800 dark:text-amber-200">Azure AD not configured</p>
-                    <p className="mt-1 text-amber-700 dark:text-amber-300">
-                      Set <code className="bg-amber-100 dark:bg-amber-800 px-1 rounded text-xs">NEXT_PUBLIC_AZURE_CLIENT_ID</code> in your environment variables to enable authentication.
+                    <p className="font-medium text-amber-200">Azure AD not configured</p>
+                    <p className="mt-1 text-amber-300">
+                      Set <code className="bg-amber-800 px-1 rounded text-xs">NEXT_PUBLIC_AZURE_CLIENT_ID</code> to enable authentication.
                     </p>
                   </div>
                 </div>
@@ -80,16 +79,16 @@ export default function DashboardLayout({
 
             {/* Error Display */}
             {error && (
-              <div className="mb-4 rounded-lg bg-red-50 p-4 text-sm text-red-700 dark:bg-red-900/50 dark:text-red-400 border border-red-200 dark:border-red-800">
+              <div className="mb-4 rounded-lg bg-red-900/50 p-4 text-sm text-red-400 border border-red-800">
                 {error}
               </div>
             )}
 
-            {/* Microsoft Sign-in Button - Official Style */}
+            {/* Microsoft Sign-in Button */}
             <button
               onClick={login}
               disabled={!isConfigured}
-              className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-700"
+              className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-600 bg-[#21262d] px-4 py-3 text-sm font-medium text-gray-200 hover:bg-[#30363d] focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <MicrosoftLogo />
               Sign in with Microsoft
@@ -99,52 +98,39 @@ export default function DashboardLayout({
             <div className="mt-4">
               <button
                 onClick={() => setDemoMode(true)}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-3 text-sm font-medium text-white shadow-sm hover:from-purple-500 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               >
                 <Play className="h-4 w-4" />
                 Try Demo Mode
               </button>
-              <p className="mt-2 text-center text-xs text-gray-500 dark:text-gray-400">
-                Explore the interface with sample data
+              <p className="mt-2 text-center text-xs text-gray-500">
+                Explore with sample data - no sign-in required
               </p>
             </div>
 
-            {/* Divider */}
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
-              </div>
-              <div className="relative flex justify-center text-xs">
-                <span className="bg-white dark:bg-gray-800 px-2 text-gray-500">or continue with</span>
+            {/* Features */}
+            <div className="mt-6 pt-6 border-t border-gray-800">
+              <p className="text-xs text-gray-500 mb-3">Features:</p>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm text-gray-400">
+                  <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                  View all eligible &amp; active roles
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-400">
+                  <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                  Activate roles with justification
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-400">
+                  <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                  Security alerts &amp; recommendations
+                </div>
               </div>
             </div>
-
-            {/* Features List */}
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/50">
-                  <Shield className="h-4 w-4 text-green-600 dark:text-green-400" />
-                </div>
-                <span>View eligible &amp; active roles</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/50">
-                  <Shield className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                </div>
-                <span>Activate roles with justification</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900/50">
-                  <Shield className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-                </div>
-                <span>Track activation history</span>
-              </div>
-            </div>
-
-            <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
-              By signing in, you agree to let this app access your Entra ID PIM data.
-            </p>
           </div>
+
+          <p className="mt-4 text-center text-xs text-gray-600">
+            Open source alternative to commercial PIM tools
+          </p>
         </div>
       </div>
     );
@@ -152,7 +138,7 @@ export default function DashboardLayout({
 
   // Demo mode banner component
   const DemoBanner = () => (
-    <div className="bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-center text-sm text-white">
+    <div className="bg-blue-600 px-4 py-2 text-center text-sm text-white">
       <span className="font-medium">Demo Mode</span> - Exploring with sample data.{" "}
       <button
         onClick={() => setDemoMode(false)}
@@ -168,17 +154,31 @@ export default function DashboardLayout({
 
   return (
     <DataProvider>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-[#0d1117]">
         {demoMode && <DemoBanner />}
-        <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <Sidebar
+          open={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          demoMode={demoMode}
+          onExitDemo={() => setDemoMode(false)}
+        />
 
-        <div className="lg:pl-72">
-          <Header onMenuClick={() => setSidebarOpen(true)} demoMode={demoMode} />
+        <div className="lg:pl-64">
+          {/* Mobile header */}
+          <div className="sticky top-0 z-40 flex h-14 shrink-0 items-center gap-x-4 border-b border-gray-800 bg-[#0d1117] px-4 lg:hidden">
+            <button
+              type="button"
+              className="-m-2.5 p-2.5 text-gray-400"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <span className="sr-only">Open sidebar</span>
+              <Menu className="h-6 w-6" />
+            </button>
+            <span className="text-lg font-semibold text-white">Entra ID PIM Manager</span>
+          </div>
 
-          <main className="py-6">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              {children}
-            </div>
+          <main className="p-4 lg:p-6">
+            {children}
           </main>
         </div>
       </div>
