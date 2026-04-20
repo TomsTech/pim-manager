@@ -15,7 +15,9 @@
 ├── docs
 │   ├── generated
 │   │   ├── diagrams
-│   │   └── .gitkeep
+│   │   ├── .gitkeep
+│   │   ├── INDEX.md
+│   │   └── STATISTICS.md
 │   └── INDEX.md
 ├── public
 │   ├── file.svg
@@ -54,7 +56,7 @@
 ├── postcss.config.mjs
 └── tsconfig.json
 
-15 directories, 33 files
+15 directories, 35 files
 ```
 
 ## Key Directories
